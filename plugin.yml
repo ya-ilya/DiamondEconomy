@@ -1,0 +1,14 @@
+name: DiamondEconomy
+main: com.ilya.economy.Main
+version: 1.0
+authors: [ya-ilya]
+depend: [Vault]
+commands:
+   deposit:
+      description: put the diamonds on the balance. 1 diamond - 1 dollar
+      usage: /deposit <all/amount>
+      aliases: [dep, deposit]
+   withdraw:
+      description: withdraw money from your balance and turn it into diamonds. 1 dollar - 1 diamond
+      usage: /withdraw <all/amount>
+      aliases: [with, withdraw]
