@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.ilya.economy.Main;
+import com.ilya.economy.util.Util;
 
 import net.milkbowl.vault.economy.EconomyResponse;
 
@@ -35,7 +36,7 @@ public class DepCommand implements CommandExecutor {
 			    ItemStack d = new ItemStack(Material.DIAMOND);
 				amount = calc(p, d);
 				bs = true;
-		}else if (isNumeric(args[0])){
+		}else if (Util.isNumeric(args[0])){
 			amount = Integer.parseInt(args[0]);
 			bs = false;
 		}else {
@@ -53,10 +54,10 @@ public class DepCommand implements CommandExecutor {
 			}
 		}
 		
-		if(CheckItems(p, m, amount)) {
+		if(p.getInventory().containsAtLeast(new ItemStack(m), amount)) {
 			EconomyResponse r = Main.getEconomy().depositPlayer(p, amount);
             if(r.transactionSuccess()) {
-            	removeD(p, m, amount);
+            	p.getInventory().removeItem(new ItemStack(m, amount));
             	p.sendMessage(ChatColor.GREEN + "[DiamondEconomy] You converted the diamonds into " + amount + " money");
             }else {
             	p.sendMessage(ChatColor.RED + "[DiamondEconomy] Error!");
@@ -67,14 +68,6 @@ public class DepCommand implements CommandExecutor {
 		}
 		return true;
 	}
-	
-	 boolean CheckItems(Player p, Material m, int amount){
-	        return p.getInventory().containsAtLeast(new ItemStack(m), amount);
-	 }
-	 
-	 void removeD(Player p, Material m, int a) {
-		 p.getInventory().removeItem(new ItemStack(m, a));
-	 }
 	 
 	 static int calc(Player p, ItemStack s) {
 	        int count = 0;
@@ -87,18 +80,5 @@ public class DepCommand implements CommandExecutor {
 	            }
 	        }
 	        return count;
-	 }
-	 
-	 static boolean isNumeric(String str)  
-	 {  
-	   try  
-	   {  
-	     int i = Integer.parseInt(str);  
-	   }  
-	   catch(NumberFormatException nfe)  
-	   {  
-	     return false;  
-	   }  
-	   return true;  
 	 }
 }

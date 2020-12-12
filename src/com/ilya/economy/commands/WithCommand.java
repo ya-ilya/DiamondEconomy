@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.ilya.economy.Main;
 import com.ilya.economy.util.InventoryUtil;
+import com.ilya.economy.util.Util;
 
 @SuppressWarnings("deprecation")
 public class WithCommand implements CommandExecutor {
@@ -36,7 +37,7 @@ public class WithCommand implements CommandExecutor {
 		if (args[0].equalsIgnoreCase("all")) {
 				amount = Main.getEconomy().getBalance(p.getName());
 				bs = true;
-		}else if (isNumeric(args[0])){
+		}else if (Util.isNumeric(args[0])){
 			amount = Integer.parseInt(args[0]);
 			bs = false;
 		}else {
@@ -73,18 +74,4 @@ public class WithCommand implements CommandExecutor {
 		Main.getEconomy().withdrawPlayer(p.getName(), withdrawAmount);
 		return true;
 	}
-	
-	static boolean isNumeric(String str)  
-	 {  
-	   try  
-	   {  
-	     int i = Integer.parseInt(str);  
-	   }  
-	   catch(NumberFormatException nfe)  
-	   {  
-	     return false;  
-	   }  
-	   return true;  
-	 }
-
 }
