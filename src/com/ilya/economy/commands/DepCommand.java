@@ -47,11 +47,10 @@ public class DepCommand implements CommandExecutor {
 		if (amount <= 0) {
 			if (bs) {
 				p.sendMessage(ChatColor.RED + "[DiamondEconomy] You don't have any diamonds in your inventory!");
-				return true;
 			} else {
 				p.sendMessage(ChatColor.RED + "[DiamondEconomy] Enter a number greater than 0!");
-				return true;
 			}
+			return true;
 		}
 		
 		if(p.getInventory().containsAtLeast(new ItemStack(m), amount)) {
